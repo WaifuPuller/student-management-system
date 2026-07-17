@@ -1,13 +1,19 @@
-FROM eclipse-temurin:21-jdk
+# ---------- Build Stage ----------
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
 COPY . .
 
-RUN chmod +x mvnw || true
+RUN mvn clean package -DskipTests
 
-RUN ./mvnw clean package -DskipTests || mvn clean package -DskipTests
+# ---------- Run Stage ----------
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+COPY --from=build /app/target/student-management-backend-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/student-management-backend-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
