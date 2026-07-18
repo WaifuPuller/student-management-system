@@ -4,6 +4,17 @@ A modern full-stack **Student Management System** built using **React + Vite**, 
 
 ---
 
+# 🎓 Student Management System
+
+A modern full-stack Student Management System...
+
+[![Frontend](https://img.shields.io/badge/Frontend-Live-success?style=for-the-badge)](https://student-management-system-gamma-dusky.vercel.app)
+[![Backend](https://img.shields.io/badge/Backend-API-blue?style=for-the-badge)](https://student-management-backend-c5xl.onrender.com)
+[![Presentation](https://img.shields.io/badge/Presentation-Gamma-orange?style=for-the-badge)](https://gamma.app/docs/Student-Management-System-h02jj1w5r6qp6k6)
+[![License](https://img.shields.io/badge/License-Educational-lightgrey?style=for-the-badge)](#)
+
+---
+
 # 🚀 Live Demo
 
 ### 🌐 Frontend
@@ -13,6 +24,16 @@ https://student-management-system-gamma-dusky.vercel.app
 ### ⚙️ Backend API
 
 https://student-management-backend-c5xl.onrender.com
+
+---
+
+## 📊 Project Presentation
+
+Explore the complete project presentation, including the system architecture, database design, technology stack, features, deployment workflow, and future enhancements.
+
+🔗 **Interactive Presentation (Gamma)**
+
+https://gamma.app/docs/Student-Management-System-h02jj1w5r6qp6k6
 
 ---
 
@@ -437,6 +458,17 @@ course-form.png
 - Unit Testing
 - CI/CD Pipeline
 - Audit Logs
+
+---
+
+## 📂 Project Resources
+
+| Resource | Description | Link |
+|----------|-------------|------|
+| 🌐 Live Application | Explore the deployed web application | https://student-management-system-gamma-dusky.vercel.app |
+| ⚙️ Backend REST API | Spring Boot REST API | https://student-management-backend-c5xl.onrender.com |
+| 📊 Interactive Presentation | Project presentation created with Gamma | https://gamma.app/docs/Student-Management-System-h02jj1w5r6qp6k6 |
+| 📖 GitHub Repository | Source code and documentation | https://github.com/WaifuPuller/student-management-system |
 
 ---
 
