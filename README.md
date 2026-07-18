@@ -1,56 +1,196 @@
-# 📚 Student Management System
+# 🎓 Student Management System
 
-A full-stack Student Management System built using **React + Vite**, **Spring Boot**, and **PostgreSQL**. The application allows users to manage student records through a clean and responsive web interface with complete CRUD functionality.
+A modern full-stack **Student Management System** built using **React + Vite**, **Spring Boot**, and **PostgreSQL**. The application provides a complete university-style management system for handling **Students**, **Teachers**, and **Courses** with proper relational database design and full CRUD operations.
 
 ---
 
-## 🚀 Live Demo
+# 🚀 Live Demo
 
-### Frontend
+### 🌐 Frontend
+
 https://student-management-system-gamma-dusky.vercel.app
 
-### Backend API
+### ⚙️ Backend API
+
 https://student-management-backend-c5xl.onrender.com
 
 ---
 
-## ✨ Features
+# ✨ Features
 
-- 📋 View all students
-- ➕ Add new students
-- ✏️ Update student information
-- ❌ Delete student records
-- 🔍 Search students by name
-- 📊 Dashboard with student statistics
-- 📱 Responsive UI
-- ☁️ Cloud-hosted backend and database
+## 👨‍🎓 Student Management
+
+- View all students
+- Add new students
+- Update student details
+- Delete students
+- Search students
+- Assign students to courses
+- View assigned teacher automatically through course relationship
 
 ---
 
-## 🛠️ Tech Stack
+## 👨‍🏫 Teacher Management
 
-### Frontend
+- View teachers
+- Add teachers
+- Update teacher information
+- Delete teachers
+- Search teachers
+- Department management
+- Specialization management
+
+---
+
+## 📚 Course Management
+
+- View courses
+- Add courses
+- Edit courses
+- Delete courses
+- Assign teachers to courses
+- Course code management
+- Credits management
+
+---
+
+## 📊 Dashboard
+
+Displays
+
+- Total Students
+- Total Teachers
+- Total Courses
+
+---
+
+## 🗄️ Database Features
+
+- Proper relational database design
+- Foreign key relationships
+- One Teacher → Many Courses
+- One Course → Many Students
+- Data integrity using JPA relationships
+- Validation
+- Referential integrity
+
+---
+
+## ☁️ Deployment
+
+- Frontend hosted on Vercel
+- Backend hosted on Render
+- PostgreSQL hosted on Neon
+
+---
+
+# 🏗️ System Architecture
+
+```
+                    User
+                      │
+                      ▼
+        React + Vite Frontend
+               (Vercel)
+                      │
+               REST API Calls
+                      │
+                      ▼
+      Spring Boot Backend
+             (Render)
+                      │
+             Spring Data JPA
+                      │
+                      ▼
+      PostgreSQL Database
+             (Neon)
+```
+
+---
+
+# 🗃️ Database Design
+
+```
+Teacher
+│
+├── id
+├── teacherName
+├── email
+├── department
+├── specialization
+└── phoneNumber
+      │
+      │ One Teacher teaches many Courses
+      ▼
+Course
+│
+├── id
+├── courseName
+├── courseCode
+├── credits
+└── teacher_id
+      │
+      │ One Course has many Students
+      ▼
+Student
+│
+├── id
+├── name
+├── email
+├── phone
+├── year
+└── course_id
+```
+
+---
+
+# 🔗 Entity Relationships
+
+```
+Teacher
+     │
+     ▼
+Course
+     │
+     ▼
+Student
+```
+
+- One Teacher can teach multiple Courses.
+- One Course can have multiple Students.
+- Every Student belongs to exactly one Course.
+- Teacher information is derived through the assigned Course.
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
 - React
 - Vite
 - Axios
-- React Router
+- React Router DOM
 - Tailwind CSS
 
-### Backend
-- Spring Boot
+## Backend
+
 - Java 21
-- Maven
+- Spring Boot
+- Spring MVC
 - Spring Data JPA
-- REST API
+- Maven
 
-### Database
+## Database
+
 - PostgreSQL
-- Neon Database
+- Neon
 
-### Deployment
-- Frontend: Vercel
-- Backend: Render
-- Database: Neon
+## Deployment
+
+- Vercel
+- Render
+- Neon
 
 ---
 
@@ -60,15 +200,23 @@ https://student-management-backend-c5xl.onrender.com
 StudentManagementSystem
 │
 ├── backend
-│   ├── src
+│   ├── controller
+│   ├── dto
+│   ├── entity
+│   ├── repository
+│   ├── service
+│   ├── config
 │   ├── pom.xml
 │   └── Dockerfile
 │
 ├── frontend
-│   ├── src
-│   ├── public
-│   ├── package.json
-│   └── vite.config.js
+│   ├── components
+│   ├── pages
+│   ├── services
+│   ├── assets
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── package.json
 │
 └── README.md
 ```
@@ -89,15 +237,13 @@ cd student-management-system
 
 # Backend Setup
 
-Move into backend folder
+Navigate to backend
 
 ```bash
 cd backend
 ```
 
-Create an `application.properties` file.
-
-Example configuration
+Configure the database
 
 ```properties
 spring.datasource.url=jdbc:postgresql://HOST/DATABASE
@@ -109,8 +255,6 @@ spring.datasource.password=YOUR_PASSWORD
 spring.datasource.driver-class-name=org.postgresql.Driver
 
 spring.jpa.hibernate.ddl-auto=update
-
-spring.jpa.show-sql=true
 ```
 
 Run backend
@@ -119,7 +263,7 @@ Run backend
 mvn spring-boot:run
 ```
 
-Backend runs on
+Runs on
 
 ```
 http://localhost:8080
@@ -129,31 +273,35 @@ http://localhost:8080
 
 # Frontend Setup
 
-Move into frontend folder
+Navigate to frontend
 
 ```bash
 cd frontend
 ```
 
-Install dependencies
+Install packages
 
 ```bash
 npm install
 ```
 
-Create a `.env` file
+Create
+
+```
+.env
+```
 
 ```env
 VITE_API_URL=http://localhost:8080
 ```
 
-Start development server
+Run
 
 ```bash
 npm run dev
 ```
 
-Frontend runs on
+Runs on
 
 ```
 http://localhost:5173
@@ -161,40 +309,42 @@ http://localhost:5173
 
 ---
 
-# 🌐 API Endpoints
+# 🌐 REST API
+
+## Student APIs
 
 | Method | Endpoint | Description |
-|----------|----------------------|-------------------|
-| GET | /api/students | Get all students |
-| GET | /api/students/{id} | Get student by ID |
-| GET | /api/students/search?name= | Search student |
-| POST | /api/students | Create student |
-| PUT | /api/students/{id} | Update student |
-| DELETE | /api/students/{id} | Delete student |
+|---------|----------|-------------|
+| GET | `/api/students` | Get all students |
+| GET | `/api/students/{id}` | Get student by ID |
+| GET | `/api/students/search` | Search students |
+| POST | `/api/students` | Add student |
+| PUT | `/api/students/{id}` | Update student |
+| DELETE | `/api/students/{id}` | Delete student |
 
 ---
 
-# 🚀 Deployment
+## Teacher APIs
 
-## Backend
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/api/teachers` | Get all teachers |
+| GET | `/api/teachers/{id}` | Get teacher |
+| POST | `/api/teachers` | Add teacher |
+| PUT | `/api/teachers/{id}` | Update teacher |
+| DELETE | `/api/teachers/{id}` | Delete teacher |
 
-Hosted on Render
+---
 
-```
-https://student-management-backend-c5xl.onrender.com
-```
+## Course APIs
 
-## Frontend
-
-Hosted on Vercel
-
-```
-https://student-management-system-gamma-dusky.vercel.app
-```
-
-## Database
-
-Hosted on Neon PostgreSQL
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/api/courses` | Get all courses |
+| GET | `/api/courses/{id}` | Get course |
+| POST | `/api/courses` | Add course |
+| PUT | `/api/courses/{id}` | Update course |
+| DELETE | `/api/courses/{id}` | Delete course |
 
 ---
 
@@ -205,6 +355,8 @@ Hosted on Neon PostgreSQL
 ```env
 VITE_API_URL=https://student-management-backend-c5xl.onrender.com
 ```
+
+---
 
 ## Backend
 
@@ -218,36 +370,73 @@ SPRING_DATASOURCE_PASSWORD
 
 ---
 
+# 🚀 Deployment
+
+## Frontend
+
+**Platform:** Vercel
+
+```
+https://student-management-system-gamma-dusky.vercel.app
+```
+
+---
+
+## Backend
+
+**Platform:** Render
+
+```
+https://student-management-backend-c5xl.onrender.com
+```
+
+---
+
+## Database
+
+**Platform:** Neon PostgreSQL
+
+---
+
 # 📸 Screenshots
 
-You can add screenshots here.
-
-Example:
+Recommended screenshots:
 
 ```
 screenshots/
 
 dashboard.png
 
-add-student.png
+students.png
 
-student-list.png
+teachers.png
+
+courses.png
+
+student-form.png
+
+teacher-form.png
+
+course-form.png
 ```
 
 ---
 
-# 📈 Future Improvements
+# 🔮 Future Enhancements
 
-- Authentication & Authorization
+- JWT Authentication
+- Role-Based Access Control
+- Attendance Management
+- Marks Management
+- Multiple Course Enrollment
+- Student Profile Images
+- Email Notifications
 - Pagination
-- Student profile image upload
-- Export data to PDF/Excel
-- Role-based access control
-- Dark mode
-- Advanced filtering
-- Unit testing
+- Export to PDF/Excel
 - Docker Compose
+- Unit Testing
 - CI/CD Pipeline
+- Audit Logs
 
 ---
 
@@ -255,11 +444,15 @@ student-list.png
 
 **Aaditya Singh**
 
-B.Tech CSE  
+B.Tech Artificial Intelligence & Machine Learning
+
 Malla Reddy University
+
+GitHub:
+https://github.com/WaifuPuller
 
 ---
 
 # 📄 License
 
-This project is developed for educational purposes.
+This project is developed for educational and learning purposes.
