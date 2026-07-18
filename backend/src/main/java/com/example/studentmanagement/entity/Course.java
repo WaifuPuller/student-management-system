@@ -6,31 +6,33 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
-@Table(name = "students")
+@Table(name = "courses")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Student {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String courseName;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String courseCode;
 
     @Column(nullable = false)
-    private String phone;
+    private Integer credits;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
+    @JoinColumn(name = "teacher_id", nullable = false)
+    private Teacher teacher;
 
-    @Column(nullable = false)
-    private String year;
+    @OneToMany(mappedBy = "course")
+    private List<Student> students;
 }

@@ -7,28 +7,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.NotNull;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentRequestDto {
+public class TeacherRequestDto {
 
-    @NotBlank(message = "Name is required")
-    private String name;
+    @NotBlank(message = "Teacher Name is required")
+    private String teacherName;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email format")
     private String email;
 
-    @NotBlank(message = "Phone is required")
+    @NotBlank(message = "Department is required")
+    private String department;
+
+    private String specialization;
+
+    @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
-    private String phone;
-
-    @NotNull(message = "Course ID is required")
-    private Long courseId;
-
-    @NotBlank(message = "Year is required")
-    private String year;
+    private String phoneNumber;
 }

@@ -2,8 +2,10 @@ package com.example.studentmanagement.service.impl;
 
 import com.example.studentmanagement.dto.StudentRequestDto;
 import com.example.studentmanagement.dto.StudentResponseDto;
+import com.example.studentmanagement.entity.Course;
 import com.example.studentmanagement.entity.Student;
 import com.example.studentmanagement.exception.ResourceNotFoundException;
+import com.example.studentmanagement.repository.CourseRepository;
 import com.example.studentmanagement.repository.StudentRepository;
 import com.example.studentmanagement.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
 
     @Override
     public StudentResponseDto createStudent(StudentRequestDto dto) {
@@ -24,11 +27,14 @@ public class StudentServiceImpl implements StudentService {
             throw new IllegalArgumentException("Email already exists");
         }
 
+        Course course = courseRepository.findById(dto.getCourseId())
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + dto.getCourseId()));
+
         Student student = Student.builder()
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .phone(dto.getPhone())
-                .course(dto.getCourse())
+                .course(course)
                 .year(dto.getYear())
                 .build();
 
@@ -51,8 +57,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StudentResponseDto> searchStudents(String name) {
-        return studentRepository.findByNameContainingIgnoreCase(name).stream()
+    public List<StudentResponseDto> searchStudents(String keyword) {
+        return studentRepository.findByNameContainingIgnoreCaseOrCourseCourseNameContainingIgnoreCaseOrCourseTeacherTeacherNameContainingIgnoreCase(keyword, keyword, keyword).stream()
                 .map(this::mapToResponseDto)
                 .collect(Collectors.toList());
     }
@@ -66,10 +72,13 @@ public class StudentServiceImpl implements StudentService {
             throw new IllegalArgumentException("Email already exists");
         }
 
+        Course course = courseRepository.findById(dto.getCourseId())
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + dto.getCourseId()));
+
         student.setName(dto.getName());
         student.setEmail(dto.getEmail());
         student.setPhone(dto.getPhone());
-        student.setCourse(dto.getCourse());
+        student.setCourse(course);
         student.setYear(dto.getYear());
 
         Student updatedStudent = studentRepository.save(student);
@@ -90,7 +99,9 @@ public class StudentServiceImpl implements StudentService {
                 .name(student.getName())
                 .email(student.getEmail())
                 .phone(student.getPhone())
-                .course(student.getCourse())
+                .courseId(student.getCourse() != null ? student.getCourse().getId() : null)
+                .courseName(student.getCourse() != null ? student.getCourse().getCourseName() : null)
+                .teacherName(student.getCourse() != null && student.getCourse().getTeacher() != null ? student.getCourse().getTeacher().getTeacherName() : null)
                 .year(student.getYear())
                 .build();
     }

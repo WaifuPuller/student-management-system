@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { FaGraduationCap, FaHome, FaUsers, FaPlus } from 'react-icons/fa';
+import { FaGraduationCap, FaHome, FaUsers, FaPlus, FaChalkboardTeacher, FaBook } from 'react-icons/fa';
 
 const Layout = () => {
     return (
@@ -23,6 +23,14 @@ const Layout = () => {
                     <Link to="/students/new" className="flex items-center space-x-2 p-2 hover:bg-indigo-700 rounded transition-colors">
                         <FaPlus />
                         <span>Add Student</span>
+                    </Link>
+                    <Link to="/teachers" className="flex items-center space-x-2 p-2 hover:bg-indigo-700 rounded transition-colors">
+                        <FaChalkboardTeacher />
+                        <span>Teachers</span>
+                    </Link>
+                    <Link to="/courses" className="flex items-center space-x-2 p-2 hover:bg-indigo-700 rounded transition-colors">
+                        <FaBook />
+                        <span>Courses</span>
                     </Link>
                 </nav>
                 <div className="p-4 text-sm text-indigo-300 border-t border-indigo-700">

@@ -97,7 +97,11 @@ const StudentDetails = () => {
                                 <div className="space-y-3">
                                     <div>
                                         <p className="text-sm text-gray-500">Course / Program</p>
-                                        <p className="text-gray-900 font-medium">{student.course}</p>
+                                        <p className="text-gray-900 font-medium">{student.courseName || 'N/A'}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-sm text-gray-500">Teacher</p>
+                                        <p className="text-gray-900 font-medium">{student.teacherName || 'N/A'}</p>
                                     </div>
                                     <div>
                                         <p className="text-sm text-gray-500">Current Year</p>

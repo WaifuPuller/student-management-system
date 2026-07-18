@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { studentService } from '../services/apiService';
-import { FaUsers, FaUserGraduate } from 'react-icons/fa';
+import { studentService, teacherService, courseService } from '../services/apiService';
+import { FaUsers, FaUserGraduate, FaChalkboardTeacher, FaBook } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
     const [totalStudents, setTotalStudents] = useState(0);
+    const [totalTeachers, setTotalTeachers] = useState(0);
+    const [totalCourses, setTotalCourses] = useState(0);
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const res = await studentService.getAllStudents();
-                if (res.success) {
-                    setTotalStudents(res.data.length);
-                }
+                const [studentsRes, teachersRes, coursesRes] = await Promise.all([
+                    studentService.getAllStudents(),
+                    teacherService.getAllTeachers(),
+                    courseService.getAllCourses()
+                ]);
+                
+                if (studentsRes.success) setTotalStudents(studentsRes.data.length);
+                if (teachersRes.success) setTotalTeachers(teachersRes.data.length);
+                if (coursesRes.success) setTotalCourses(coursesRes.data.length);
             } catch (err) {
                 console.error("Error fetching stats", err);
             }
@@ -32,6 +39,26 @@ const Dashboard = () => {
                     <div>
                         <p className="text-sm text-gray-500 uppercase font-semibold">Total Students</p>
                         <p className="text-3xl font-bold text-gray-800">{totalStudents}</p>
+                    </div>
+                </div>
+
+                <div className="bg-white rounded-xl shadow-md p-6 flex items-center space-x-4 border-l-4 border-green-500 hover:shadow-lg transition-shadow">
+                    <div className="p-3 bg-green-100 rounded-full text-green-600 text-2xl">
+                        <FaChalkboardTeacher />
+                    </div>
+                    <div>
+                        <p className="text-sm text-gray-500 uppercase font-semibold">Total Teachers</p>
+                        <p className="text-3xl font-bold text-gray-800">{totalTeachers}</p>
+                    </div>
+                </div>
+
+                <div className="bg-white rounded-xl shadow-md p-6 flex items-center space-x-4 border-l-4 border-blue-500 hover:shadow-lg transition-shadow">
+                    <div className="p-3 bg-blue-100 rounded-full text-blue-600 text-2xl">
+                        <FaBook />
+                    </div>
+                    <div>
+                        <p className="text-sm text-gray-500 uppercase font-semibold">Total Courses</p>
+                        <p className="text-3xl font-bold text-gray-800">{totalCourses}</p>
                     </div>
                 </div>
                 

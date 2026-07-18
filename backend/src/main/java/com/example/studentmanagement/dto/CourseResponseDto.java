@@ -9,13 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentResponseDto {
+public class CourseResponseDto {
     private Long id;
-    private String name;
-    private String email;
-    private String phone;
-    private Long courseId;
     private String courseName;
+    private String courseCode;
+    private Integer credits;
+    private Long teacherId;
     private String teacherName;
-    private String year;
 }

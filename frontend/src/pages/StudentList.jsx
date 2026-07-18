@@ -57,7 +57,7 @@ const StudentList = () => {
                     </div>
                     <input 
                         type="text" 
-                        placeholder="Search students by name..."
+                        placeholder="Search students by name, course, or teacher..."
                         className="pl-10 w-full md:w-1/3 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm py-2 px-3 border"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -74,6 +74,7 @@ const StudentList = () => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Teacher</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>
                                     <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                 </tr>
@@ -91,7 +92,8 @@ const StudentList = () => {
                                                 <div className="text-sm font-medium text-gray-900">{student.name}</div>
                                                 <div className="text-sm text-gray-500">{student.email}</div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{student.course}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{student.courseName || 'N/A'}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{student.teacherName || 'N/A'}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{student.year}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-center space-x-3">
                                                 <Link to={`/students/${student.id}`} className="text-blue-600 hover:text-blue-900 inline-flex items-center" title="View"><FaEye /></Link>
